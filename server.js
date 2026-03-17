@@ -24,7 +24,61 @@ app.engine('liquid', engine.express())
 app.set('views', './views')
 
 
-console.log('Let op: Er zijn nog geen routes. Voeg hier dus eerst jouw GET en POST routes toe.')
+// GET ROUTES 
+// Homepage
+app.get('/', async function (request, response) {
+   // Render index.liquid uit de Views map
+   // Geef hier eventueel data aan mee
+  const newsResponse = await fetch('https://fdnd-agency.directus.app/items/frankendael_news')
+  const newsData = await newsResponse.json()
+
+  const zonesResponse = await fetch('https://fdnd-agency.directus.app/items/frankendael_zones')
+  const zonesData = await zonesResponse.json()
+
+  const plantsResponse = await fetch('https://fdnd-agency.directus.app/items/frankendael_plants')
+  const plantsData = await plantsResponse.json()
+
+  response.render('index.liquid', {
+    news: newsData.data,
+    zones: zonesData.data,
+    plants: plantsData.data
+  })
+})
+
+//news page
+app.get('/nieuws', async function (request, response) {
+
+  const newsResponse = await fetch('https://fdnd-agency.directus.app/items/frankendael_news')
+  const newsData = await newsResponse.json()
+
+  response.render('nieuws.liquid', {
+    news: newsData.data
+  })
+
+})
+
+app.get('/nieuws/:slug', async function (request, response) {
+
+  const newsResponse = await fetch('https://fdnd-agency.directus.app/items/frankendael_news')
+  const newsData = await newsResponse.json()
+
+  const article = newsData.data.find(function(item){
+    return item.slug === request.params.slug
+  })
+
+  response.render('news-detail.liquid', {
+    article: article
+  })
+
+})
+
+// Maak een POST route voor de index; hiermee kun je bijvoorbeeld formulieren afvangen
+// Hier doen we nu nog niets mee, maar je kunt er mee spelen als je wilt
+app.post('/', async function (request, response) {
+  // Je zou hier data kunnen opslaan, of veranderen, of wat je maar wilt
+  // Er is nog geen afhandeling van een POST, dus stuur de bezoeker terug naar /
+  response.redirect(303, '/')
+})
 
 /*
 // Zie https://expressjs.com/en/5x/api.html#app.get.method over app.get()
@@ -77,5 +131,5 @@ app.set('port', process.env.PORT || 8000)
 // Start Express op, gebruik daarbij het zojuist ingestelde poortnummer op
 app.listen(app.get('port'), function () {
   // Toon een bericht in de console
-  console.log(`Daarna kun je via http://localhost:${app.get('port')}/ jouw interactieve website bekijken.\n\nThe Web is for Everyone. Maak mooie dingen 🙂`)
+   console.log(`Application started on http://localhost:${app.get('port')}`)
 })
