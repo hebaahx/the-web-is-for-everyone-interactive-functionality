@@ -66,18 +66,35 @@ app.get('/nieuws/:slug', async function (request, response) {
     return item.slug === request.params.slug
   })
 
+  // Haal comments op gefilterd op dit artikel
+  const commentsResponse = await fetch(
+    `https://fdnd-agency.directus.app/items/frankendael_news_comments?filter[news][_eq]=${article.id}`
+  )
+  const commentsData = await commentsResponse.json()
+
   response.render('news-detail.liquid', {
-    article: article
+    article: article,
+    comments: commentsData.data
   })
 
 })
 
-// Maak een POST route voor de index; hiermee kun je bijvoorbeeld formulieren afvangen
-// Hier doen we nu nog niets mee, maar je kunt er mee spelen als je wilt
-app.post('/', async function (request, response) {
-  // Je zou hier data kunnen opslaan, of veranderen, of wat je maar wilt
-  // Er is nog geen afhandeling van een POST, dus stuur de bezoeker terug naar /
-  response.redirect(303, '/')
+
+//POST VOOR COMMENTS!!
+app.post('/nieuws/:slug', async function (request, response) {
+  await fetch('https://fdnd-agency.directus.app/items/frankendael_news_comments', {
+    method: 'POST',
+    body: JSON.stringify({
+      news: request.body.news,
+      name: request.body.name,
+      comment: request.body.comment
+    }),
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8'
+    }
+  })
+
+  response.redirect(303, `/nieuws/${request.params.slug}`)
 })
 
 /*
