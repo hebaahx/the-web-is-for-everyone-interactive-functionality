@@ -23,37 +23,39 @@
             <img src="/assets/filledheart.svg" alt="likes"> 
             {{ article.likes.size }} likes
         </button>
-        <button class="artikel-comments" id="comments">
-            <img src="/assets/comment.svg" alt="comments"> 
-            {{ comments.size }} comments
-        </button>
+
+        <details class="reactie-details">
+            <summary class="artikel-comments">
+                <img src="/assets/comment.svg" alt="comments"> 
+                {{ comments.size }} comments
+            </summary>
+
+            <div class="reactie-popover">
+                <h2>Voeg een reactie toe:</h2>
+
+                <form method="POST" action="/nieuws/{{ article.slug }}">
+                    <input type="hidden" name="news" value="{{ article.id }}">
+
+                    <label for="naam">Naam:</label>
+                    <input type="text" id="naam" name="name" placeholder="Jouw naam" required>
+
+                    <label for="bericht">Bericht:</label>
+                    <textarea id="bericht" name="comment" placeholder="Schrijf een reactie..." required></textarea>
+
+                    <button type="submit">Verstuur</button>
+                </form>
+
+                <ul class="reactie-lijst">
+                    {% for item in comments %}
+                        <li class="reactie-item">
+                            <span class="reactie-naam">{{ item.name }}</span>
+                            <p class="reactie-tekst">{{ item.comment }}</p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </details>
     </div>
- 
-    <!-- Popover -->
-    <div class="reactie-popover" id="reactie-popover" hidden>
-        <h2>Voeg een reactie toe:</h2>
- 
-        <form method="POST" action="/nieuws/{{ article.slug }}">
-            <input type="hidden" name="news" value="{{ article.id }}">
- 
-            <label for="naam">Naam:</label>
-            <input type="text" id="naam" name="name" placeholder="Jouw naam" required>
- 
-            <label for="bericht">Bericht:</label>
-            <textarea id="bericht" name="comment" placeholder="Schrijf een reactie..." required></textarea>
- 
-            <button type="submit">Verstuur</button>
-        </form>
- 
-        <ul class="reactie-lijst">
-            {% for item in comments %}
-            <li class="reactie-item">
-                <span class="reactie-naam">{{ item.name }}</span>
-                <p class="reactie-tekst">{{ item.comment }}</p>
-            </li>
-            {% endfor %}
-        </ul>
-    </div>    
 
     <p class="date">Geplaatst: {{ article.date | date: "%d-%m-%Y" }}</p>
     <h2>{{ article.title }}</h2>

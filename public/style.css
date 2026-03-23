@@ -81,6 +81,11 @@ h2 {
         background:#D5C9E3 ;
     }
 
+    &.green {
+        background: #BAD790;
+
+    }
+
     .card-top {
         display: flex;
         justify-content: space-between;
@@ -308,7 +313,9 @@ footer {
 .artikel-balk {
     display: flex;
     gap: 16px;
+    align-items: center;
     padding: 12px 16px;
+    position: relative;
 
     .artikel-likes,
     .artikel-comments {
@@ -328,12 +335,39 @@ footer {
     }
 }
 
-/* Popover */
+/* details */
+.reactie-details {
+    .reactie-popover {
+        position: absolute;
+        left: 16px;
+        right: 16px;
+        z-index: 10;
+        margin-top: 8px;
+    }
+
+    summary {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 14px;
+        cursor: pointer;
+
+        img {
+            width: 18px;
+            height: 18px;
+        }
+
+        &::-webkit-details-marker {
+        display: none;
+        }
+    }
+}
+
+/*inhoud van het bericht*/
 .reactie-popover {
     background: #f7f3a4;
     border-radius: 17px;
     padding: 15px;
-    margin: 0 16px 16px;
  
     h2 {
         font-size: 18px;
@@ -377,7 +411,7 @@ footer {
         margin-bottom: 14px;
     }
  
-    /* reacties*/
+    /* reacties lijst*/
     .reactie-lijst {
         list-style: none;
         padding: 0;
