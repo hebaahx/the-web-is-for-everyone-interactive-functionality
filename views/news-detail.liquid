@@ -22,8 +22,8 @@
         <form method="POST" action="/nieuws/{{ article.slug }}/like">
             <input type="hidden" name="news" value="{{ article.id }}">
             <button class="artikel-likes" type="submit">
-                 <img src="/assets/filledheart.svg" alt="likes">
-                 {{ likes.size }} likes
+                <img src="/assets/filledheart.svg" alt="likes">
+                {{ likes.size }} likes
             </button>
         </form>
 

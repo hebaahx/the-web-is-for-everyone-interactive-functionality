@@ -327,11 +327,17 @@ footer {
         border: none;
         cursor: pointer;
         padding: 0;
+        color: black;
 
         img {
             width: 18px;
             height: 18px;
         }
+        
+        &:hover img {
+            transform: scale(1.5);
+        }
+
     }
 }
 
