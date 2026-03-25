@@ -72,9 +72,16 @@ app.get('/nieuws/:slug', async function (request, response) {
   )
   const commentsData = await commentsResponse.json()
 
+  // Likes ophalen
+  const likesResponse = await fetch(
+    `https://fdnd-agency.directus.app/items/frankendael_news_likes?filter[news][_eq]=${article.id}`
+  )
+  const likesData = await likesResponse.json()
+
   response.render('news-detail.liquid', {
     article: article,
-    comments: commentsData.data
+    comments: commentsData.data,
+    likes: likesData.data
   })
 
 })
@@ -88,6 +95,21 @@ app.post('/nieuws/:slug', async function (request, response) {
       news: request.body.news,
       name: request.body.name,
       comment: request.body.comment
+    }),
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8'
+    }
+  })
+
+  response.redirect(303, `/nieuws/${request.params.slug}`)
+})
+
+// POST voor likes
+app.post('/nieuws/:slug/like', async function (request, response) {
+  await fetch('https://fdnd-agency.directus.app/items/frankendael_news_likes', {
+    method: 'POST',
+    body: JSON.stringify({
+      news: request.body.news
     }),
     headers: {
       'Content-Type': 'application/json;charset=UTF-8'
