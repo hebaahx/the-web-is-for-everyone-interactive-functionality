@@ -49,12 +49,19 @@
                 </form>
 
                 <ul class="reactie-lijst">
-                    {% for item in comments %}
-                        <li class="reactie-item">
-                            <span class="reactie-naam">{{ item.name }}</span>
-                            <p class="reactie-tekst">{{ item.comment }}</p>
+                    {% if comments.size > 0 %}
+                        {% for item in comments %}
+                            <li class="reactie-item">
+                                <span class="reactie-naam">{{ item.name }}</span>
+                                <p class="reactie-tekst">{{ item.comment }}</p>
+                            </li>
+                        {% endfor %}
+                    {% else %}
+                        <li class="reactie-empty">
+                            Nog geen reacties. Wees de eerste! 🌱
                         </li>
-                    {% endfor %}
+                    {% endif %}
+
                 </ul>
             </div>
         </details>
