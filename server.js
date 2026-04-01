@@ -86,6 +86,15 @@ app.get('/nieuws/:slug', async function (request, response) {
 
 })
 
+app.get('/collectie', async function (request, response) {
+  const plantsResponse = await fetch('https://fdnd-agency.directus.app/items/frankendael_plants')
+  const plantsData = await plantsResponse.json()
+
+  response.render('collectie.liquid', {
+    plants: plantsData.data
+  })
+})
+
 
 //POST VOOR COMMENTS!!
 app.post('/nieuws/:slug', async function (request, response) {
