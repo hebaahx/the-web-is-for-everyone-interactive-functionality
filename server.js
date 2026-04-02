@@ -81,7 +81,9 @@ app.get('/nieuws/:slug', async function (request, response) {
   response.render('news-detail.liquid', {
     article: article,
     comments: commentsData.data,
-    likes: likesData.data
+    likes: likesData.data,
+    commented: request.query.commented,
+    error: request.query.error
   })
 
 })
