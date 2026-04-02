@@ -9,25 +9,34 @@
 </header>
 
 <section class="collectie">
-    <div class="planten-grid">
-        {% for plant in plants %}
-        <a href="/collectie/{{ plant.slug }}" class="plant-kaart">
-            {% if plant.in_bloom %}
-                <img 
-                    src="https://fdnd-agency.directus.app/assets/{{ plant.in_bloom }}" 
-                    alt=" Foto van {{ plant.name }}"
-                >
-            {% else %}
-                <p>Geen afbeelding 🌱</p>
-            {% endif %}
 
-            <span class="plant-naam">{{ plant.name }}</span>
+    <div class="collectie-kaart paars">
+        <img src="/assets/nabloei.jpg" alt="Na de bloei">
+
+        <h2>Na de bloei</h2>
+        <p>
+            Bekijk alle digitale kaarten die je hebt gespaard in het bloemenveld 
+            en lees de bijbehorende informatie over de bloem of plant terug.
+        </p>
+
+        <a href="/collectie/na-de-bloei" class="btn">
+            Bekijk alle kaarten
         </a>
+    </div>
 
-        {% else %}
-            <p> Er zijn nog geen planten in de collectie 🌱</p>
-        {% endfor %}
-        
+
+    <div class="collectie-kaart groen">
+        <img src="/assets/inbloei.jpg" alt="In de bloei">
+
+        <h2>In de bloei</h2>
+        <p>
+            Bekijk alle digitale kaarten die je hebt gespaard in het bloemenveld 
+            en lees de bijbehorende informatie over de bloem of plant terug.
+        </p>
+
+        <a href="/collectie/in-de-bloei" class="btn">
+            Bekijk alle kaarten
+        </a>
     </div>
 
 </section>

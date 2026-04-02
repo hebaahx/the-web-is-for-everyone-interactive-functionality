@@ -95,6 +95,37 @@ app.get('/collectie', async function (request, response) {
   })
 })
 
+// IN DE BLOEI
+app.get('/collectie/in-de-bloei', async function (request, response) {
+  const plantsResponse = await fetch('https://fdnd-agency.directus.app/items/frankendael_plants')
+  const plantsData = await plantsResponse.json()
+
+  // filter: alleen planten MET image (in bloom)
+  const filteredPlants = plantsData.data.filter(function(plant){
+    return plant.in_bloom !== null
+  })
+
+  response.render('in-de-bloei.liquid', {
+    plants: filteredPlants
+  })
+})
+
+
+// NA DE BLOEI
+app.get('/collectie/na-de-bloei', async function (request, response) {
+  const plantsResponse = await fetch('https://fdnd-agency.directus.app/items/frankendael_plants')
+  const plantsData = await plantsResponse.json()
+
+  // filter: planten ZONDER image
+  const filteredPlants = plantsData.data.filter(function(plant){
+    return plant.in_bloom === null
+  })
+
+  response.render('na-de-bloei.liquid', {
+    plants: filteredPlants
+  })
+})
+
 
 //POST VOOR COMMENTS!!
 app.post('/nieuws/:slug', async function (request, response) {

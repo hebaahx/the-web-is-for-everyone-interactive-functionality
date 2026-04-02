@@ -442,3 +442,88 @@ footer {
         }
     }
 }
+
+/* Collectie */
+.collectie {
+    padding: 16px;
+    padding-bottom: 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .collectie-kaart {
+        border-radius: 20px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+    }
+
+    img {
+    width: 100%;
+    border-radius: 12px;
+    height: 200px;
+    object-fit: cover;
+    flex-shrink: 0;
+    }
+
+    h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 0px;
+    }
+
+    p {
+    font-size: 14px;
+    line-height: 1.4;
+    }
+
+    .btn {
+    background: #3C3C3C;
+    color: white;
+    padding: 12px;
+    border-radius: 10px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 14px;
+    }
+}    
+
+/* kleuren kaart*/
+.paars {
+    background: #d2c9e7;
+}
+
+.groen {
+    background: #BAD790;
+}
+
+/* in de bloei*/
+.planten-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.plant-kaart {
+    text-decoration: none;
+    color: black;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #FFF0B5;
+    display: flex;
+    flex-direction: column;
+
+    img {
+        width: 100%;
+        aspect-ratio: 1/1;
+        object-fit: cover;
+    }
+
+    .plant-naam {
+        font-size: 13px;
+        font-weight: bold;
+        padding: 8px;
+        text-align: center;
+    }
+}
