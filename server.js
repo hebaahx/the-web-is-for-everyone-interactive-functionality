@@ -83,7 +83,7 @@ app.get('/nieuws/:slug', async function (request, response) {
     comments: commentsData.data,
     likes: likesData.data,
     liked: request.query.liked,
-    commented: request.query.commented,
+    commented: request.query.success,
     error: request.query.error
   })
 

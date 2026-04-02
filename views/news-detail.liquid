@@ -18,6 +18,11 @@
     >
 
     <!-- Likes en comments balk -->
+    
+    {% if liked == 'true' %}
+        <p class="success"> ❤️ Bedankt voor je like!</p>
+    {% endif %}
+
     <div class="artikel-balk">
         <form method="POST" action="/nieuws/{{ article.slug }}/like">
             <input type="hidden" name="news" value="{{ article.id }}">
@@ -35,6 +40,14 @@
 
             <div class="reactie-popover">
                 <h2>Voeg een reactie toe:</h2>
+
+                {% if commented == 'true' %}
+                    <p class="success"> ✅ Je reactie is geplaatst!</p>
+                {% endif %}
+
+                {% if error == 'true' %}
+                    <p class="error"> ❌ Er ging iets mis. Probeer het opnieuw.</p>
+                {% endif %}
 
                 <form method="POST" action="/nieuws/{{ article.slug }}">
                     <input type="hidden" name="news" value="{{ article.id }}">
