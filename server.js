@@ -82,6 +82,7 @@ app.get('/nieuws/:slug', async function (request, response) {
     article: article,
     comments: commentsData.data,
     likes: likesData.data,
+    liked: request.query.liked,
     commented: request.query.commented,
     error: request.query.error
   })
@@ -174,7 +175,8 @@ app.post('/nieuws/:slug', async function (request, response) {
 
 // POST voor likes
 app.post('/nieuws/:slug/like', async function (request, response) {
-  await fetch('https://fdnd-agency.directus.app/items/frankendael_news_likes', {
+  try {
+    const result = await fetch('https://fdnd-agency.directus.app/items/frankendael_news_likes', {
     method: 'POST',
     body: JSON.stringify({
       news: request.body.news
@@ -183,9 +185,19 @@ app.post('/nieuws/:slug/like', async function (request, response) {
       'Content-Type': 'application/json;charset=UTF-8'
     }
   })
+  
+  if (!result.ok) {
+    return response.redirect(303, `/nieuws/${request.params.slug}?error=true`)
+  }
+ 
 
-  response.redirect(303, `/nieuws/${request.params.slug}`)
+  response.redirect(303, `/nieuws/${request.params.slug}?liked=true`)
+  
+} catch(e) {
+    response.redirect(303, `/nieuws/${request.params.slug}?error=true`)
+  }
 })
+
 
 /*
 // Zie https://expressjs.com/en/5x/api.html#app.get.method over app.get()
