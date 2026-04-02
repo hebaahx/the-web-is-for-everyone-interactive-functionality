@@ -126,6 +126,20 @@ app.get('/collectie/na-de-bloei', async function (request, response) {
   })
 })
 
+// VOOR INFO KAART
+app.get('/collectie/:slug', async function (request, response) {
+  const plantsResponse = await fetch('https://fdnd-agency.directus.app/items/frankendael_plants')
+  const plantsData = await plantsResponse.json()
+
+  const plant = plantsData.data.find(function(item) {
+    return item.slug === request.params.slug
+  })
+
+  response.render('plant-detail.liquid', {
+    plant: plant
+  })
+})
+
 
 //POST VOOR COMMENTS!!
 app.post('/nieuws/:slug', async function (request, response) {
